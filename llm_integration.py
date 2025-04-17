@@ -5,8 +5,9 @@ import os
 load_dotenv()  # Load environment variables from .env file
 
 class LLMIntegration:
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
     def __init__(self):
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.client = OpenAI(api_key=openai.api_key)
         self.model = "gpt-3.5-turbo"  # gpt-3.5-turbo, llama-3.1-latest
 
     def generate_response(self, query, retrieved_chunks):
