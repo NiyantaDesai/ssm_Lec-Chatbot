@@ -21,7 +21,7 @@ st.markdown("""
         overflow-y: auto;
         margin: 1rem auto;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
     .message {
         margin: 10px 0;
