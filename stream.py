@@ -33,24 +33,28 @@ st.markdown("""
     }
     .user {
         align-self: flex-end;
-        background-color: #e0ecff;
-        color: blue;
+        background-color: #cce0ff;
+        # background-color: #e0ecff;
+        # color: blue;
         text-align: right;
     }
     .bot {
         align-self: flex-start;
-        background-color: #e6ffe6;
-        color: green;
+        # background-color: #e6ffe6;
+        # color: green;
+        background-color: #ccffcc;
         text-align: left;
     }
 
     /* 🟢 Style for latest message pair */
     .latest-user {
-        background-color: #cce0ff;
+        background-color: #e0ecff;
+        color: blue;
         animation: highlight 0.7s ease-in-out;
     }
     .latest-bot {
-        background-color: #ccffcc;
+        background-color: #e6ffe6;
+        color: green;
         animation: highlight 0.7s ease-in-out;
     }
     @keyframes highlight {
