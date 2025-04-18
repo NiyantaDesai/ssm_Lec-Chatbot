@@ -71,6 +71,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("<h1 style='text-align: center;'>SSM Learning Excellence Centre Chatbot</h1>", unsafe_allow_html=True)
+st.markdown("<h5 style='text-align: center;'>Write Exit to close the Chat</h5>", unsafe_allow_html=True)
 
 # Store messages
 if "messages" not in st.session_state:
