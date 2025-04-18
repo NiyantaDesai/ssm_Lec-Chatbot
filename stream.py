@@ -91,10 +91,23 @@ if send and user_input:
     st.session_state.messages.append(("bot", response))
 
 # ✅ Display all messages inside one single container div
-chat_html = '<div class="chatbox">'
+chat_html = '''
+<div class="chatbox" id="chatbox">
+'''
 for sender, message in st.session_state.messages:
     role_class = "user" if sender == "user" else "bot"
     chat_html += f'<div class="message {role_class}">{message}</div>'
 chat_html += '</div>'
 
+# 👇 JavaScript to scroll to bottom (focus on latest message)
+chat_html += """
+<script>
+    const chatbox = document.getElementById("chatbox");
+    if (chatbox) {
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+</script>
+"""
+
 st.markdown(chat_html, unsafe_allow_html=True)
+
