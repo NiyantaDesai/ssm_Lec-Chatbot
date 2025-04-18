@@ -3,7 +3,7 @@ from chatbot import Chatbot
 
 st.set_page_config(page_title="SSM Chatbot", layout="centered")
 
-# Custom styling to mimic your HTML layout
+# Custom styling and animation
 st.markdown("""
     <style>
     body {
@@ -21,7 +21,7 @@ st.markdown("""
         overflow-y: auto;
         margin: 1rem auto;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
     .message {
         margin: 10px 0;
@@ -43,6 +43,21 @@ st.markdown("""
         color: green;
         text-align: left;
     }
+
+    /* 🟢 Style for latest message pair */
+    .latest-user {
+        background-color: #cce0ff;
+        animation: highlight 0.7s ease-in-out;
+    }
+    .latest-bot {
+        background-color: #ccffcc;
+        animation: highlight 0.7s ease-in-out;
+    }
+    @keyframes highlight {
+        from { transform: scale(1.02); box-shadow: 0 0 8px rgba(0, 0, 0, 0.15); }
+        to { transform: scale(1); }
+    }
+
     .input-container {
         width: 100%;
         max-width: 600px;
@@ -90,24 +105,18 @@ if send and user_input:
     response = bot.chat(user_input)
     st.session_state.messages.append(("bot", response))
 
-# ✅ Display all messages inside one single container div
-chat_html = '''
-<div class="chatbox" id="chatbox">
-'''
-for sender, message in st.session_state.messages:
+# Show messages in reverse order with animation on latest
+chat_html = '<div class="chatbox" id="chatbox">'
+
+reversed_messages = st.session_state.messages[::-1]
+for i, (sender, message) in enumerate(reversed_messages):
     role_class = "user" if sender == "user" else "bot"
+    # Highlight latest pair
+    if i < 2:
+        role_class = f"latest-{role_class}"
     chat_html += f'<div class="message {role_class}">{message}</div>'
+
 chat_html += '</div>'
 
-# 👇 JavaScript to scroll to bottom (focus on latest message)
-chat_html += """
-<script>
-    const chatbox = document.getElementById("chatbox");
-    if (chatbox) {
-        chatbox.scrollTop = chatbox.scrollHeight;
-    }
-</script>
-"""
-
+# Optional JS to auto-scroll to top (not needed now as chatbox is column-reverse)
 st.markdown(chat_html, unsafe_allow_html=True)
-
